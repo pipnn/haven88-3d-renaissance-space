@@ -1,5 +1,5 @@
 
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { Group } from 'three';
@@ -21,24 +21,37 @@ const Model3D = ({
 }: Model3DProps) => {
   const meshRef = useRef<Group>(null);
   
+  let gltf;
   try {
-    const gltf = useLoader(GLTFLoader, modelPath);
-    
-    useFrame((state) => {
-      if (meshRef.current && autoRotate) {
-        meshRef.current.rotation.y += 0.01;
-      }
-    });
-
+    gltf = useLoader(GLTFLoader, modelPath);
+  } catch (error) {
+    console.log('Model loading error:', error);
     return (
+      <mesh ref={meshRef} position={position} rotation={rotation} scale={scale}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color="orange" />
+      </mesh>
+    );
+  }
+  
+  useFrame((state) => {
+    if (meshRef.current && autoRotate) {
+      meshRef.current.rotation.y += 0.005;
+    }
+  });
+
+  return (
+    <Suspense fallback={
+      <mesh position={position} rotation={rotation} scale={scale}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color="gray" />
+      </mesh>
+    }>
       <group ref={meshRef} position={position} rotation={rotation} scale={scale}>
         <primitive object={gltf.scene} />
       </group>
-    );
-  } catch (error) {
-    console.log('Model loading error:', error);
-    return null;
-  }
+    </Suspense>
+  );
 };
 
 export default Model3D;

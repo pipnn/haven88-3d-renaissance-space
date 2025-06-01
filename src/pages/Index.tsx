@@ -289,7 +289,7 @@ const Index = () => {
                 }`}
                 onClick={() => setActiveService(index)}
                 style={{
-                  transform: `perspective(1000px) rotateX(${scrollY * 0.002}deg) rotateY(${scrollY * 0.003}deg)`,
+                  transform: `perspective(1000px) rotateX(${scrollY * 0.0005}deg) rotateY(${scrollY * 0.0005}deg)`,
                   animationDelay: `${index * 0.2}s`
                 }}
               >

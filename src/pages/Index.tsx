@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronRight, Star, Play, Phone, MessageCircle, Home, Palette, Wrench, Eye, Box } from "lucide-react";
+import Scene3D from "@/components/Scene3D";
 
 const Index = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -31,25 +32,29 @@ const Index = () => {
       title: "Custom Interior Design Solutions",
       description: "We tailor every design to match your lifestyle, preferences, and space requirements—creating unique homes that reflect your personality.",
       icon: <Palette className="w-8 h-8" />,
-      features: ["Personalized Design", "Space Optimization", "Style Matching"]
+      features: ["Personalized Design", "Space Optimization", "Style Matching"],
+      models: ['/src/leather_chairgltf.glb', '/src/red_chair.glb']
     },
     {
       title: "3D Visualization & Mood Boards",
       description: "See your future home before the work begins—with realistic renderings and mood boards that help you visualize the final outcome.",
       icon: <Eye className="w-8 h-8" />,
-      features: ["3D Renderings", "Virtual Walkthrough", "Material Previews"]
+      features: ["3D Renderings", "Virtual Walkthrough", "Material Previews"],
+      models: ['/src/bed.glb', '/src/bed_01.glb']
     },
     {
       title: "Project Management & Renovation",
       description: "We handle everything from start to finish, coordinating with contractors and suppliers to deliver high-quality results on time.",
       icon: <Wrench className="w-8 h-8" />,
-      features: ["Full Project Management", "Quality Assurance", "Timely Delivery"]
+      features: ["Full Project Management", "Quality Assurance", "Timely Delivery"],
+      models: ['/src/office_chair.glb', '/src/table_wood.glb']
     },
     {
       title: "Floor Plans & 3D Rendering",
       description: "We help you select the best materials, color palettes, and finishes that align with your design vision and budget through detailed floor plans and 3D rendering.",
       icon: <Box className="w-8 h-8" />,
-      features: ["Floor Plan Design", "3D Architectural Rendering", "Budget Optimization"]
+      features: ["Floor Plan Design", "3D Architectural Rendering", "Budget Optimization"],
+      models: ['/src/restaurant_table_and_chairs.glb', '/src/bed (1).glb']
     }
   ];
 
@@ -166,7 +171,7 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section with 3D Models */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black"></div>
         <div 
@@ -200,6 +205,15 @@ const Index = () => {
             <p className="text-xl md:text-2xl mb-8 text-gray-300 animate-slide-in-right">
               Design Your Dream, Build Your Haven
             </p>
+            
+            {/* 3D Scene Integration */}
+            <div className="h-64 w-full mb-8 rounded-2xl overflow-hidden bg-gray-800/50 backdrop-blur-sm border border-gray-600">
+              <Scene3D 
+                models={['/src/leather_chairgltf.glb', '/src/table_wood.glb', '/src/office_chair.glb']}
+                autoRotate={true}
+              />
+            </div>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up">
               <Button 
                 size="lg" 
@@ -223,7 +237,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Services Section with 3D Models */}
       <section id="services" className="py-20 bg-gray-800 relative overflow-hidden">
         {/* Floating 3D Tables */}
         <div className="absolute inset-0 pointer-events-none">
@@ -267,7 +281,7 @@ const Index = () => {
                 }}
               >
                 <CardContent className="p-8">
-                  <div className="flex items-start space-x-4">
+                  <div className="flex items-start space-x-4 mb-4">
                     <div className="flex-shrink-0 p-3 bg-orange-500/20 rounded-lg text-orange-400 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-12">
                       {service.icon}
                     </div>
@@ -282,6 +296,14 @@ const Index = () => {
                         ))}
                       </div>
                     </div>
+                  </div>
+                  
+                  {/* 3D Model Preview for each service */}
+                  <div className="h-48 w-full rounded-lg overflow-hidden bg-gray-800/50 border border-gray-600">
+                    <Scene3D 
+                      models={service.models}
+                      autoRotate={activeService === index}
+                    />
                   </div>
                 </CardContent>
               </Card>
@@ -413,7 +435,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Why Choose Us with 3D Models */}
       <section className="py-20 bg-gray-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -443,13 +465,13 @@ const Index = () => {
                 Learn More About Us
               </Button>
             </div>
-            <div className="relative animate-slide-in-right">
-              <img 
-                src="https://images.unsplash.com/photo-1483058712412-4245e9b90334?ixlib=rb-4.0.3" 
-                alt="Modern Kitchen Interior" 
-                className="rounded-2xl shadow-2xl w-full h-96 object-cover card-3d hover:scale-105 transition-transform duration-500"
+            
+            {/* 3D Model Showcase */}
+            <div className="relative animate-slide-in-right h-96">
+              <Scene3D 
+                models={['/src/bed.glb', '/src/red_chair.glb', '/src/restaurant_table_and_chairs.glb']}
+                autoRotate={true}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
             </div>
           </div>
         </div>

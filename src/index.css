@@ -5,47 +5,6 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
@@ -73,6 +32,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -81,6 +41,8 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --radius: 0.5rem;
   }
 }
 
@@ -90,11 +52,16 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gray-900 text-gray-100;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-/* Custom animations for Haven88 */
+/* Enhanced 3D animations and effects */
 @layer utilities {
   .animate-float {
     animation: float 6s ease-in-out infinite;
@@ -115,14 +82,40 @@
   .animate-slide-in-right {
     animation: slideInRight 0.8s ease-out;
   }
+
+  .animate-rotate-3d {
+    animation: rotate3d 10s linear infinite;
+  }
+
+  .animate-bounce-3d {
+    animation: bounce3d 2s ease-in-out infinite;
+  }
+
+  .animate-float-rotate {
+    animation: floatRotate 8s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-scale-pulse {
+    animation: scalePulse 3s ease-in-out infinite;
+  }
 }
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotateX(5deg) rotateY(15deg);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-20px) rotateX(0deg) rotateY(30deg);
+  }
+  75% {
+    transform: translateY(-10px) rotateX(-5deg) rotateY(15deg);
   }
 }
 
@@ -140,37 +133,89 @@
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-50px) rotateY(-20deg);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) rotateY(0deg);
   }
 }
 
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(50px) rotateY(20deg);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) rotateY(0deg);
   }
 }
 
-/* Smooth scrolling for the entire page */
-html {
-  scroll-behavior: smooth;
+@keyframes rotate3d {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  33% {
+    transform: rotateX(360deg) rotateY(0deg) rotateZ(0deg);
+  }
+  66% {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+  }
 }
 
-/* Custom scrollbar */
+@keyframes bounce3d {
+  0%, 100% {
+    transform: translateY(0) rotateX(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) rotateX(180deg) scale(1.1);
+  }
+}
+
+@keyframes floatRotate {
+  0%, 100% {
+    transform: translateY(0px) rotateZ(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotateZ(90deg);
+  }
+  50% {
+    transform: translateY(-30px) rotateZ(180deg);
+  }
+  75% {
+    transform: translateY(-15px) rotateZ(270deg);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px #f97316, 0 0 30px #f97316, 0 0 40px #f97316;
+  }
+  to {
+    box-shadow: 0 0 30px #dc2626, 0 0 40px #dc2626, 0 0 50px #dc2626;
+  }
+}
+
+@keyframes scalePulse {
+  0%, 100% {
+    transform: scale(1) rotateZ(0deg);
+  }
+  50% {
+    transform: scale(1.05) rotateZ(5deg);
+  }
+}
+
+/* Custom scrollbar for dark theme */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #1f2937;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -182,33 +227,134 @@ html {
   background: linear-gradient(to bottom, #ea580c, #b91c1c);
 }
 
-/* Glass morphism effect */
+/* Enhanced glass morphism effect for dark theme */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(31, 41, 55, 0.3);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(249, 115, 22, 0.2);
 }
 
-/* 3D card hover effect */
+/* Enhanced 3D card hover effect */
 .card-3d {
   transform-style: preserve-3d;
-  transition: transform 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  perspective: 1000px;
 }
 
 .card-3d:hover {
-  transform: rotateY(5deg) rotateX(5deg);
+  transform: rotateY(8deg) rotateX(8deg) translateZ(20px);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(249, 115, 22, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Gradient text */
+/* Enhanced gradient text for dark theme */
 .gradient-text {
-  background: linear-gradient(45deg, #f97316, #dc2626);
+  background: linear-gradient(45deg, #f97316, #dc2626, #f59e0b);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
 }
 
-/* Parallax effect */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Parallax effect enhancement */
 .parallax {
   transform: translateZ(0);
   will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* 3D hover effects for buttons */
+.btn-3d {
+  transform-style: preserve-3d;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn-3d:hover {
+  transform: translateY(-8px) rotateX(15deg);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(249, 115, 22, 0.3);
+}
+
+/* Floating animation variants */
+.float-delayed-1 {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.float-delayed-2 {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.float-delayed-3 {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 3s;
+}
+
+/* 3D text shadow effect */
+.text-3d {
+  text-shadow: 
+    0 1px 0 #ccc,
+    0 2px 0 #c9c9c9,
+    0 3px 0 #bbb,
+    0 4px 0 #b9b9b9,
+    0 5px 0 #aaa,
+    0 6px 1px rgba(0,0,0,.1),
+    0 0 5px rgba(0,0,0,.1),
+    0 1px 3px rgba(0,0,0,.3),
+    0 3px 5px rgba(0,0,0,.2),
+    0 5px 10px rgba(0,0,0,.25);
+}
+
+/* Enhanced backdrop blur */
+.backdrop-blur-enhanced {
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+}
+
+/* 3D transform utilities */
+.transform-3d {
+  transform-style: preserve-3d;
+}
+
+.rotate-x-12 {
+  transform: rotateX(12deg);
+}
+
+.rotate-y-12 {
+  transform: rotateY(12deg);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Neon glow effect */
+.neon-glow {
+  box-shadow: 
+    0 0 5px theme('colors.orange.500'),
+    0 0 10px theme('colors.orange.500'),
+    0 0 15px theme('colors.orange.500'),
+    0 0 20px theme('colors.orange.500');
+}
+
+.neon-glow-red {
+  box-shadow: 
+    0 0 5px theme('colors.red.500'),
+    0 0 10px theme('colors.red.500'),
+    0 0 15px theme('colors.red.500'),
+    0 0 20px theme('colors.red.500');
 }

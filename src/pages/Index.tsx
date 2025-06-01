@@ -1,9 +1,8 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ChevronRight, Star, Play, Phone, MessageCircle, Home, Palette, Wrench, Eye, Cube, Box } from "lucide-react";
+import { ChevronRight, Star, Play, Phone, MessageCircle, Home, Palette, Wrench, Eye, Box } from "lucide-react";
 
 const Index = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -49,7 +48,7 @@ const Index = () => {
     {
       title: "Floor Plans & 3D Rendering",
       description: "We help you select the best materials, color palettes, and finishes that align with your design vision and budget through detailed floor plans and 3D rendering.",
-      icon: <Cube className="w-8 h-8" />,
+      icon: <Box className="w-8 h-8" />,
       features: ["Floor Plan Design", "3D Architectural Rendering", "Budget Optimization"]
     }
   ];
@@ -240,7 +239,7 @@ const Index = () => {
               }}
             >
               <div className="w-full h-full flex items-center justify-center">
-                <Cube className="w-8 h-8 text-orange-400/50" />
+                <Box className="w-8 h-8 text-orange-400/50" />
               </div>
             </div>
           ))}

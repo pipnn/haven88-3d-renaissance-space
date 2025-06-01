@@ -120,25 +120,29 @@ const Index = () => {
     }
   ];
 
-  // 3D floating elements
-  const FloatingCube = ({ delay = 0, size = "w-12 h-12" }: { delay?: number; size?: string }) => (
+  // 3D floating elements - using actual furniture models instead of cubes
+  const FloatingFurniture = ({ delay = 0, size = "w-12 h-12", modelPath }: { delay?: number; size?: string; modelPath: string }) => (
     <div 
-      className={`${size} bg-gradient-to-br from-orange-500/20 to-red-500/20 backdrop-blur-sm border border-orange-500/30 rounded-lg absolute animate-float shadow-xl`}
+      className={`${size} absolute animate-float shadow-xl`}
       style={{ 
         animationDelay: `${delay}s`,
-        transform: `translateY(${Math.sin(scrollY * 0.01 + delay) * 20}px) rotateX(${scrollY * 0.1}deg) rotateY(${scrollY * 0.2}deg)`
+        transform: `translateY(${Math.sin(scrollY * 0.01 + delay) * 20}px) rotateX(${scrollY * 0.05}deg) rotateY(${scrollY * 0.1}deg)`
       }}
     >
-      <Box className="w-full h-full p-2 text-orange-400" />
+      <Scene3D 
+        models={[modelPath]}
+        autoRotate={true}
+        className="w-full h-full"
+      />
     </div>
   );
 
   return (
     <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden">
-      {/* Floating 3D Elements */}
-      <FloatingCube delay={0} size="w-16 h-16" />
-      <FloatingCube delay={1} size="w-12 h-12" />
-      <FloatingCube delay={2} size="w-8 h-8" />
+      {/* Floating 3D Elements - using actual furniture */}
+      <FloatingFurniture delay={0} size="w-16 h-16" modelPath="/src/leather_chairgltf.glb" />
+      <FloatingFurniture delay={1} size="w-12 h-12" modelPath="/src/red_chair.glb" />
+      <FloatingFurniture delay={2} size="w-8 h-8" modelPath="/src/office_chair.glb" />
       
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-gray-900/90 backdrop-blur-md z-50 border-b border-gray-700">
@@ -185,13 +189,13 @@ const Index = () => {
         
         {/* 3D Floating Elements in Hero */}
         <div className="absolute top-20 left-10 animate-float" style={{ animationDelay: '0s' }}>
-          <FloatingCube size="w-20 h-20" />
+          <FloatingFurniture size="w-20 h-20" modelPath="/src/leather_chairgltf.glb" />
         </div>
         <div className="absolute top-40 right-20 animate-float" style={{ animationDelay: '2s' }}>
-          <FloatingCube size="w-16 h-16" />
+          <FloatingFurniture size="w-16 h-16" modelPath="/src/red_chair.glb" />
         </div>
         <div className="absolute bottom-40 left-20 animate-float" style={{ animationDelay: '1s' }}>
-          <FloatingCube size="w-12 h-12" />
+          <FloatingFurniture size="w-12 h-12" modelPath="/src/office_chair.glb" />
         </div>
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
@@ -239,22 +243,31 @@ const Index = () => {
 
       {/* Services Section with 3D Models */}
       <section id="services" className="py-20 bg-gray-800 relative overflow-hidden">
-        {/* Floating 3D Tables */}
+        {/* Floating 3D Furniture */}
         <div className="absolute inset-0 pointer-events-none">
-          {[...Array(6)].map((_, i) => (
+          {[
+            '/src/table_wood.glb',
+            '/src/bed.glb',
+            '/src/restaurant_table_and_chairs.glb',
+            '/src/office_chair.glb',
+            '/src/red_chair.glb',
+            '/src/leather_chairgltf.glb'
+          ].map((modelPath, i) => (
             <div 
               key={i}
-              className="absolute w-32 h-20 bg-gradient-to-br from-orange-500/10 to-red-500/10 backdrop-blur-sm border border-orange-500/20 rounded-lg shadow-xl"
+              className="absolute w-20 h-20 rounded-lg shadow-xl opacity-30"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                transform: `translateY(${Math.sin(scrollY * 0.01 + i) * 30}px) rotateX(${scrollY * 0.1 + i * 10}deg) rotateY(${scrollY * 0.2 + i * 15}deg)`,
+                transform: `translateY(${Math.sin(scrollY * 0.005 + i) * 15}px) rotateZ(${scrollY * 0.05 + i * 10}deg)`,
                 animationDelay: `${i * 0.5}s`
               }}
             >
-              <div className="w-full h-full flex items-center justify-center">
-                <Box className="w-8 h-8 text-orange-400/50" />
-              </div>
+              <Scene3D 
+                models={[modelPath]}
+                autoRotate={true}
+                className="w-full h-full"
+              />
             </div>
           ))}
         </div>
@@ -276,7 +289,7 @@ const Index = () => {
                 }`}
                 onClick={() => setActiveService(index)}
                 style={{
-                  transform: `perspective(1000px) rotateX(${scrollY * 0.01}deg) rotateY(${scrollY * 0.02}deg)`,
+                  transform: `perspective(1000px) rotateX(${scrollY * 0.002}deg) rotateY(${scrollY * 0.003}deg)`,
                   animationDelay: `${index * 0.2}s`
                 }}
               >
@@ -314,20 +327,33 @@ const Index = () => {
 
       {/* Packages Section */}
       <section id="packages" className="py-20 bg-gray-900 relative overflow-hidden">
-        {/* More floating 3D elements */}
+        {/* More floating 3D furniture */}
         <div className="absolute inset-0 pointer-events-none">
-          {[...Array(8)].map((_, i) => (
+          {[
+            '/src/bed.glb',
+            '/src/leather_chairgltf.glb',
+            '/src/table_wood.glb',
+            '/src/office_chair.glb',
+            '/src/restaurant_table_and_chairs.glb',
+            '/src/red_chair.glb',
+            '/src/bed_01.glb',
+            '/src/bed (1).glb'
+          ].map((modelPath, i) => (
             <div 
               key={i}
-              className="absolute w-24 h-24 bg-gradient-to-br from-red-500/10 to-orange-500/10 backdrop-blur-sm border border-red-500/20 rounded-xl shadow-xl animate-float"
+              className="absolute w-16 h-16 rounded-xl shadow-xl opacity-20 animate-float"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 animationDelay: `${i * 0.7}s`,
-                transform: `translateY(${Math.sin(scrollY * 0.008 + i) * 25}px) rotateZ(${scrollY * 0.1 + i * 20}deg)`
+                transform: `translateY(${Math.sin(scrollY * 0.008 + i) * 25}px) rotateZ(${scrollY * 0.05 + i * 20}deg)`
               }}
             >
-              <Box className="w-full h-full p-3 text-red-400/50" />
+              <Scene3D 
+                models={[modelPath]}
+                autoRotate={true}
+                className="w-full h-full"
+              />
             </div>
           ))}
         </div>
@@ -522,10 +548,16 @@ const Index = () => {
 
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-gradient-to-br from-gray-900 to-black text-white relative overflow-hidden">
-        {/* Final floating elements */}
+        {/* Final floating furniture elements */}
         <div className="absolute inset-0 pointer-events-none">
-          {[...Array(5)].map((_, i) => (
-            <FloatingCube key={i} delay={i} size={i % 2 === 0 ? "w-16 h-16" : "w-12 h-12"} />
+          {[
+            '/src/leather_chairgltf.glb',
+            '/src/office_chair.glb',
+            '/src/red_chair.glb',
+            '/src/table_wood.glb',
+            '/src/bed.glb'
+          ].map((modelPath, i) => (
+            <FloatingFurniture key={i} delay={i} size={i % 2 === 0 ? "w-16 h-16" : "w-12 h-12"} modelPath={modelPath} />
           ))}
         </div>
 
